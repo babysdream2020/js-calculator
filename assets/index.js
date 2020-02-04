@@ -13,8 +13,8 @@ function add_num( num){
     }
 }
 function add_action(opt){
-    var old = document.getElementById('old_value').value;
-    var current = parseFloat(document.getElementById("calculator-display").innerHTML).toFixed(2);
+    var old = parseFloat(document.getElementById('old_value').value);
+    var current = parseFloat(document.getElementById("calculator-display").innerHTML);
 
     var operator = document.getElementById('operator').value;
 
@@ -42,7 +42,7 @@ function add_action(opt){
 }
 function calculate(){
     var old = parseFloat(document.getElementById('old_value').value);
-    var current = parseFloat(document.getElementById("calculator-display").innerHTML).toFixed(2);
+    var current = parseFloat(document.getElementById("calculator-display").innerHTML);
     var operator = document.getElementById('operator').value;
     var result = current;
     switch(operator) {
