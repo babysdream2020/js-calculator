@@ -1,6 +1,67 @@
 /**
  * Created by 1 on 2/3/2020.
  */
+
+
+$(document).ready(function(){
+    var displayValue = '0';
+    $('#calculator-display').text(displayValue);
+
+    $('.number').each(function(index, number){
+        $(this).click(function(e){
+            if(displayValue == '0') displayValue = '';
+            if($(this).text() == 'C')
+            {
+                displayValue = '0';
+                $('#calculator-display').text(displayValue);
+            }
+            else if($(this).text() == '=')
+            {
+                try
+                {
+                    displayValue = eval(displayValue);
+                    $('#calculator-display').text(displayValue);
+                    displayValue = '0';
+                }
+                catch (e)
+                {
+                    displayValue = '0';
+                    $('#calculator-display').text('ERROR');
+                }
+            }
+            else
+            {
+                displayValue += $(this).text();
+                $('#calculator-display').text(displayValue);
+            }
+            e.preventDefault()
+        })
+    })
+})
+
+
+$(document).ready(function() {
+    $("button").on('click',function (e) {
+        $(".number").click(function () {
+            add_num();
+        });
+        $(".key-operator").click(function () {
+            add_action();
+        });
+
+        $(".clear").click(function () {
+            clear_cal();
+        });
+        $(".calculator-keys").click(function () {
+            calculate();
+        });
+
+
+    })
+});
+
+
+
 function add_num( num){
     var old_value =document.getElementById("calculator-display").innerHTML;
     var start = document.getElementById('start').value;
@@ -78,7 +139,8 @@ var cal = document.getElementById("calculator");
 
 var moving = false;
 
-cal.addEventListener("mousedown", initialClick, false);
+cal.addEventListener("mouseDown", initialClick, false);
+cal.addEventListener("mouseUp", initialmouseUp, false);
 
 
 
@@ -92,18 +154,18 @@ function move(e){
 
 
 }
+function  initialmouseUp(e){
+    document.removeEventListener("mouseMove", move);
+    moving = !moving;
+}
+
 
 function initialClick(e) {
-
-    if(moving){
-        document.removeEventListener("mousemove", move);
-        moving = !moving;
-        return;
-    }
-
     moving = !moving;
     image = this;
 
-    document.addEventListener("mousemove", move, false);
+    document.addEventListener("mouseMove", move, false);
 
 }
+
+
